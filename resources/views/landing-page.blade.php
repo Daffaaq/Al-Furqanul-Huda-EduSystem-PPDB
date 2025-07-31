@@ -49,19 +49,38 @@
         }
 
         .btn-primary {
-            background-color: #10B981;
+            background-color: rgba(16, 185, 129, 0.9);
+            /* hijau solid agak transparan */
             color: white;
-            font-weight: 600;
+            font-weight: 700;
             padding: 12px 30px;
             border-radius: 30px;
-            transition: background-color 0.3s ease;
             text-transform: uppercase;
             font-size: 16px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.7);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            backdrop-filter: blur(8px);
+            /* blur halus untuk background tombol */
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+            /* border putih transparan */
+            cursor: pointer;
+            user-select: none;
         }
 
         .btn-primary:hover {
-            background-color: #059669;
+            background-color: rgba(16, 185, 129, 1);
+            /* warna hijau penuh */
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.9);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.6);
+            /* border jadi lebih jelas */
         }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.6);
+        }
+
 
         .navbar {
             position: fixed;
@@ -70,8 +89,14 @@
             left: 0;
             padding: 16px 32px;
             z-index: 10;
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.15);
+            /* lebih transparan */
+            backdrop-filter: blur(12px);
+            /* efek blur yang halus */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            /* sedikit bayangan untuk kedalaman */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            /* garis bawah halus */
         }
 
         .navbar a {
@@ -167,6 +192,8 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
 </head>
 
@@ -345,6 +372,157 @@
 
         </div>
     </section>
+
+    <!-- Program Section -->
+    <section id="program" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-8">
+                Program Unggulan & Kurikulum Boarding School
+            </h2>
+            <p class="text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                Berbagai program pendidikan dan pembinaan karakter yang terintegrasi untuk mencetak generasi muslim yang
+                cerdas, mandiri, dan berakhlak mulia.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16">
+
+                <!-- Program 1 -->
+                <div class="group cursor-pointer">
+                    <div
+                        class="text-7xl text-emerald-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-emerald-600 pb-1 inline-block group-hover:text-emerald-600 transition-colors duration-300">
+                        Program Tahfiz Qur'an
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pembinaan hafalan Al-Qur'an dengan metode modern dan tradisional, didukung oleh ustadz
+                        berpengalaman.
+                    </p>
+                </div>
+
+                <!-- Program 2 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-blue-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-blue-600 pb-1 inline-block group-hover:text-blue-600 transition-colors duration-300">
+                        Program Teknologi & Sains
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Kurikulum berbasis STEM yang mengembangkan keterampilan teknologi dan sains untuk mempersiapkan
+                        masa depan.
+                    </p>
+                </div>
+
+                <!-- Program 3 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-yellow-500 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-yellow-500 pb-1 inline-block group-hover:text-yellow-500 transition-colors duration-300">
+                        Program Pengembangan Karakter
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pembinaan akhlak mulia, kepemimpinan, dan kedisiplinan melalui kegiatan ekstrakurikuler dan
+                        pembiasaan sehari-hari.
+                    </p>
+                </div>
+
+                <!-- Program 4 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-purple-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-purple-600 pb-1 inline-block group-hover:text-purple-600 transition-colors duration-300">
+                        Program Bahasa Asing
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Penguasaan bahasa Arab dan Inggris sebagai bahasa komunikasi utama dan pendukung akademik.
+                    </p>
+                </div>
+
+                <!-- Program 5 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-pink-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-pink-600 pb-1 inline-block group-hover:text-pink-600 transition-colors duration-300">
+                        Program Ibadah & Spiritual
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pendalaman ilmu agama, shalat berjamaah, kajian rutin, dan penguatan spiritualitas siswa.
+                    </p>
+                </div>
+
+                <!-- Program 6 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-green-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-green-600 pb-1 inline-block group-hover:text-green-600 transition-colors duration-300">
+                        Program Kemandirian & Kewirausahaan
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pelatihan kewirausahaan dan kemandirian untuk membentuk karakter siswa yang siap mandiri dan
+                        berdaya saing.
+                    </p>
+                </div>
+
+                <!-- Program 7 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-indigo-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-indigo-600 pb-1 inline-block group-hover:text-indigo-600 transition-colors duration-300">
+                        Program Boarding Life & Soft Skills
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Pengelolaan kehidupan asrama yang mendukung pembentukan karakter mandiri, disiplin, dan kerja
+                        sama tim.
+                    </p>
+                </div>
+
+                <!-- Program 8 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-red-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-red-600 pb-1 inline-block group-hover:text-red-600 transition-colors duration-300">
+                        Program Kesehatan & Kebugaran
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Kegiatan olahraga rutin dan edukasi gaya hidup sehat untuk menjaga kebugaran dan stamina siswa.
+                    </p>
+                </div>
+
+                <!-- Program 9 -->
+                <div class="group cursor-pointer">
+                    <div class="text-7xl text-teal-600 mb-4 transition-transform duration-300 group-hover:scale-110">
+                        <i class="fas fa-glasses"></i>
+                    </div>
+                    <h3
+                        class="text-2xl font-semibold text-gray-900 mb-2 border-b-4 border-teal-600 pb-1 inline-block group-hover:text-teal-600 transition-colors duration-300">
+                        Program Literasi & Studi Mandiri
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Fasilitasi pengembangan kemampuan belajar mandiri dan literasi informasi melalui perpustakaan
+                        dan workshop.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
 
     <!-- Fasilitas Section - Tab Layout -->
     <section id="fasilitas" class="py-20 bg-gray-75">
@@ -1032,138 +1210,183 @@
     <!-- Kontak Section -->
     <section id="kontak" class="py-20 bg-gray-100 relative">
         <div class="max-w-7xl mx-auto px-6">
-
-            <!-- Judul Section Tengah -->
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 max-w-3xl mx-auto">
                 <h2 class="text-4xl md:text-5xl font-extrabold text-emerald-700 mb-4">Hubungi Kami</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                <p class="text-lg text-gray-600">
                     Jangan ragu untuk menghubungi kami jika Anda memiliki pertanyaan, membutuhkan informasi, atau ingin
                     bekerjasama.
                 </p>
             </div>
 
-            <!-- Grid Kontak dan Maps -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
 
-                <!-- Kontak Info -->
-                <div class="space-y-8">
-
-                    <!-- Alamat -->
-                    <div class="flex items-start space-x-4">
-                        <div class="text-emerald-600">
-                            <i class="fas fa-map-marker-alt text-xl"></i>
-                        </div>
+                <!-- Kontak Box -->
+                <div class="bg-white rounded-xl shadow-md p-8 flex flex-col space-y-8">
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-map-marker-alt text-emerald-600 text-2xl"></i>
                         <div>
                             <h4 class="font-semibold text-lg">Alamat</h4>
-                            <p class="text-gray-600">Jl. Pendidikan No.123, Jakarta Selatan</p>
+                            <p class="text-gray-700">{{ $contact->alamat }}</p>
                         </div>
                     </div>
 
-                    <!-- Kontak -->
-                    <div class="flex items-start space-x-4">
-                        <div class="text-emerald-600">
-                            <i class="fas fa-phone-alt text-xl"></i>
-                        </div>
+                    <div class="flex items-center space-x-4">
+                        <i class="fas fa-phone-alt text-emerald-600 text-2xl"></i>
                         <div>
                             <h4 class="font-semibold text-lg">Kontak</h4>
-                            <p class="text-gray-600">Telp: (021) 123-4567</p>
-                            <p class="text-gray-600">WA: +62 812-3456-7890</p>
-                            <p class="text-gray-600">Email: info@alfurqanulhuda.sch.id</p>
+                            <p class="text-gray-700 mb-1">Telp: {{ $contact->telepon }}</p>
+                            <p class="text-gray-700 mb-1">WA: {{ $contact->whatsapp }}</p>
+                            <p class="text-gray-700">Email: {{ $contact->email }}</p>
                         </div>
                     </div>
 
-                    <!-- Jam Operasional -->
-                    <div class="flex items-start space-x-4">
-                        <div class="text-emerald-600">
-                            <i class="fas fa-clock text-xl"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-lg">Jam Operasional</h4>
-                            <p class="text-gray-600">Senin - Jumat: 08.00 - 16.00 WIB</p>
-                            <p class="text-gray-600">Sabtu: 09.00 - 13.00 WIB</p>
-                            <p class="text-gray-600">Minggu & Libur: Tutup</p>
-                        </div>
-                    </div>
-
-
-                    <!-- Floating WhatsApp Button -->
-                    <a href="https://wa.me/6281234567890"
-                        class="fixed bottom-6 right-6 z-50 bg-emerald-900 hover:bg-emerald-700 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg"
-                        target="_blank" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp text-xl"></i>
-                    </a>
-
+                    <button id="openModalBtn"
+                        class="mt-auto bg-emerald-700 hover:bg-emerald-600 text-white font-semibold py-3 rounded-lg transition">
+                        Lihat Jadwal Operasional
+                    </button>
                 </div>
 
-                <!-- Google Maps -->
-                <div class="w-full h-[400px] rounded-xl shadow-lg overflow-hidden border border-gray-200">
-                    <iframe class="w-full h-full" loading="lazy" allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3162.9127362789943!2d106.84513031563522!3d-6.208763395502702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e56abec003%3A0x42c1d02e0ad4cfd3!2sJakarta%20Selatan!5e0!3m2!1sen!2sid!4v1623421837562!5m2!1sen!2sid">
-                    </iframe>
+                <!-- Map Box -->
+                <div class="rounded-xl shadow-md overflow-hidden border border-gray-200 h-[400px]" style="z-index:1;">
+                    <div id="map" class="w-full h-full"></div>
                 </div>
 
             </div>
         </div>
+
     </section>
 
+    <!-- Modal -->
+    <div id="operasionalModal"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+            <!-- Close button -->
+            <button id="closeModalBtn" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <h4 class="font-semibold text-xl text-emerald-700 mb-4 flex items-center space-x-2">
+                <i class="fas fa-clock"></i>
+                <span>Jam Operasional</span>
+            </h4>
+            <table class="w-full text-gray-700">
+                <tbody>
+                    @foreach ($jamOperasionals as $jam)
+                        <tr class="border-b">
+                            <td class="py-2 font-medium">{{ ucfirst($jam->hari) }}</td>
+                            <td
+                                class="py-2 text-right font-semibold 
+                {{ $jam->tutup_full ? 'text-red-600' : 'text-green-600' }}">
+                                @if ($jam->tutup_full)
+                                    Tutup
+                                @else
+                                    {{ \Carbon\Carbon::parse($jam->buka)->format('H.i') }} -
+                                    {{ \Carbon\Carbon::parse($jam->tutup)->format('H.i') }} WIB
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const openBtn = document.getElementById('openModalBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const modal = document.getElementById('operasionalModal');
+
+        openBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        // Tutup modal saat klik di luar konten modal
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    </script>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/{{ $contact->whatsapp }}"
+        class="fixed bottom-6 right-6 z-50 bg-emerald-900 hover:bg-emerald-700 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg"
+        target="_blank" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp text-xl"></i>
+    </a>
+
+
     <!-- Footer -->
-    <footer class="bg-emerald-700 text-white pt-16 pb-8">
+    <footer class="bg-gradient-to-r from-emerald-700 to-emerald-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
 
             <!-- Logo & Deskripsi -->
             <div>
-                <h3 class="text-2xl font-bold mb-4">Al-Furqanul Huda</h3>
-                <p class="text-sm text-white/80">
-                    Al-Furqanul Huda adalah lembaga pendidikan berbasis Islam yang berkomitmen membentuk generasi
-                    Qur’ani, cerdas, dan berakhlak mulia.
+                <h3 class="text-3xl font-bold mb-4 tracking-wide drop-shadow-lg">
+                    Al-Furqanul Huda
+                </h3>
+                <p class="text-gray-200 leading-relaxed max-w-sm">
+                    Lembaga pendidikan berbasis Islam yang berkomitmen membentuk generasi Qur’ani, cerdas, dan berakhlak
+                    mulia.
                 </p>
             </div>
 
             <!-- Navigasi -->
             <div>
-                <h4 class="text-lg font-semibold mb-4">Navigasi</h4>
-                <ul class="space-y-2 text-white/90 text-sm">
-                    <li><a href="#hero" class="hover:text-white">Beranda</a></li>
-                    <li><a href="#tentang" class="hover:text-white">Tentang Kami</a></li>
-                    <li><a href="#program" class="hover:text-white">Program</a></li>
-                    <li><a href="#kontak" class="hover:text-white">Kontak</a></li>
+                <h4 class="text-xl font-semibold mb-5 border-b border-white/30 pb-2">
+                    Navigasi
+                </h4>
+                <ul class="space-y-3 text-gray-300 text-lg font-medium">
+                    <li><a href="#hero" class="hover:text-white transition">Beranda</a></li>
+                    <li><a href="#tentang" class="hover:text-white transition">Tentang Kami</a></li>
+                    <li><a href="#program" class="hover:text-white transition">Program</a></li>
+                    <li><a href="#kontak" class="hover:text-white transition">Kontak</a></li>
                 </ul>
             </div>
 
-            <!-- Kontak Singkat & Sosial Media -->
+            <!-- Kontak & Sosial Media -->
             <div>
-                <h4 class="text-lg font-semibold mb-4">Kontak</h4>
-                <ul class="text-sm text-white/90 space-y-2">
-                    <li>📍 Jl. Pendidikan No.123, Jakarta Selatan</li>
-                    <li>📞 (021) 123-4567</li>
-                    <li>📧 info@alfurqanulhuda.sch.id</li>
+                <h4 class="text-xl font-semibold mb-5 border-b border-white/30 pb-2">
+                    Kontak
+                </h4>
+                <ul class="text-gray-300 space-y-2 text-lg font-medium">
+                    <li>📍 {{ $contact->alamat }}</li>
+                    <li>📞 {{ $contact->telepon }}</li>
+                    <li>📧 {{ $contact->email }}</li>
                 </ul>
 
-                <!-- Sosial Media FontAwesome -->
-                <div class="flex space-x-4 mt-6 text-white/90">
-                    <a href="#" class="hover:text-white" aria-label="Facebook">
-                        <i class="fab fa-facebook-f text-xl"></i>
+                <div class="flex space-x-6 mt-6 text-white text-2xl drop-shadow-lg">
+                    <a href="{{ $contact->facebook }}" aria-label="Facebook" class="hover:text-gray-300 transition">
+                        <i class="fab fa-facebook-f"></i>
                     </a>
-                    <a href="#" class="hover:text-white" aria-label="Instagram">
-                        <i class="fab fa-instagram text-xl"></i>
+                    <a href="{{ $contact->instagram }}" aria-label="Instagram"
+                        class="hover:text-gray-300 transition">
+                        <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="hover:text-white" aria-label="YouTube">
-                        <i class="fab fa-youtube text-xl"></i>
+                    <a href="{{ $contact->youtube }}" aria-label="YouTube" class="hover:text-gray-300 transition">
+                        <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="#" class="hover:text-white" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp text-xl"></i>
+                    <a href="{{ $contact->tiktok }}" aria-label="TikTok" class="hover:text-gray-300 transition">
+                        <i class="fab fa-tiktok"></i>
                     </a>
                 </div>
-
             </div>
         </div>
 
-        <!-- Copyright -->
-        <div class="mt-12 border-t border-white/20 pt-6 text-center text-sm text-white/70">
-            &copy; 2025 Al-Furqanul Huda. All rights reserved.
+        <div class="mt-14 border-t border-white/20 pt-6 text-center text-sm text-white/70 select-none tracking-wide">
+            &copy; 2025 Ache. All rights reserved.
         </div>
     </footer>
+
+
 
     <a href="#" id="scrollToTop"
         class="fixed bottom-6 left-6 z-50 bg-emerald-900 hover:bg-emerald-700 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg hidden"
@@ -1173,7 +1396,27 @@
 
     <script src="https://cdn.jsdelivr.net/npm/zxcvbn@4.4.2/dist/zxcvbn.js"></script>
 
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        const latitude = {{ $contact->latitude ?? '-6.208763' }};
+        const longitude = {{ $contact->longitude ?? '106.845130' }};
+
+        const map = L.map('map').setView([latitude, longitude], 15);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        L.marker([latitude, longitude]).addTo(map)
+            .bindPopup("{{ $contact->alamat ?? 'Lokasi tidak ditemukan' }}")
+            .openPopup();
+    </script>
+
 
     <script>
         // Array with image paths

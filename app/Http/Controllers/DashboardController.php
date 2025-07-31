@@ -14,6 +14,7 @@ use App\Models\Prestasi;
 use App\Models\PrestasiPendaftar;
 use App\Models\Province;
 use App\Models\Regency;
+use App\Models\SlotKosong;
 use App\Models\User;
 use App\Models\Village;
 use Carbon\Carbon;
@@ -37,6 +38,8 @@ class DashboardController extends Controller
             $totalSeleksiMataPelajaran = MataPelajaranSeleksi::where('periode_id', $periode->id)->count();
             $totalPendaftar = BiodataCalonSiswa::where('periode_id', $periode->id)->count();
             $totalTahapSeleksi = JadwalPendaftaran::where('periode_id', $periode->id)->count();
+
+
 
             $now = now();
 
@@ -84,6 +87,15 @@ class DashboardController extends Controller
                 ->where('status_jadwal_pendaftaran', 'Opened')
                 ->first();
 
+            $totalKelulusan = Pendaftaran::where('status_final', 'Lolos')->count();
+
+            $totalDiskualifikasi = Pendaftaran::where('status_diskualifikasi', '1')->count();
+
+            $totalCadangan = Pendaftaran::where('status_cadangan', '1')->count();
+
+            $slotKosong = SlotKosong::get()->count();
+
+
             if ($jadwal) {
                 $publishStatus = $jadwal->tampilkan_perangkingan ? 'published' : 'not_published';
             }
@@ -108,7 +120,11 @@ class DashboardController extends Controller
             'bobot',
             'pendaftaran',
             'publishStatus',
-            'jadwal'
+            'jadwal',
+            'totalKelulusan',
+            'totalDiskualifikasi',
+            'totalCadangan',
+            'slotKosong'
         ));
     }
 
@@ -559,9 +575,6 @@ class DashboardController extends Controller
         }
     }
 
-
-
-
     public function SettingBiodata()
     {
         $periode = DB::table('periodes')->where('status_periode', 1)->first();
@@ -578,12 +591,12 @@ class DashboardController extends Controller
         }
 
         // // Cek apakah semua pendaftaran di jadwal ini sudah final
-        // $totalPendaftaran = $jadwal->pendaftarans()->count();
+        $totalPendaftaran = $jadwal->pendaftarans()->count();
         // $totalFinal = $jadwal->pendaftarans()->where('is_final', true)->count();
 
-        // if ($totalPendaftaran == 0) {
-        //     return response()->json(['message' => 'Belum ada pendaftaran pada jadwal ini'], 400);
-        // }
+        if ($totalPendaftaran == 0) {
+            return response()->json(['message' => 'Belum ada pendaftaran pada jadwal ini'], 400);
+        }
 
         // if ($totalPendaftaran !== $totalFinal) {
         //     return response()->json(['message' => 'Tidak semua pendaftaran sudah final'], 400);
@@ -621,16 +634,20 @@ class DashboardController extends Controller
 
         // Cek apakah semua pendaftaran di jadwal ini sudah final
         $totalPendaftaran = $jadwal->pendaftarans()->count();
-        $totalFinal = $jadwal->pendaftarans()->where('is_final', true)->count();
+        $jumlahMapelSeleksi = MataPelajaranSeleksi::where('periode_id', $periode->id)->count();
+
+        $acceptedNilaiAkademik = NilaiAkademikPendaftar::whereHas('pendaftaran', function ($query) use ($jadwal) {
+            $query->where('jadwal_pendaftaran_id', $jadwal->id);
+        })->where('status', 'Accept')->count();
+        // $totalFinal = $jadwal->pendaftarans()->where('is_final', true)->count();
 
         if ($totalPendaftaran == 0) {
             return response()->json(['message' => 'Belum ada pendaftaran pada jadwal ini'], 400);
         }
 
-        if ($totalPendaftaran !== $totalFinal) {
-            return response()->json(['message' => 'Tidak semua pendaftaran sudah final'], 400);
+        if ($acceptedNilaiAkademik !== $totalPendaftaran * $jumlahMapelSeleksi) {
+            return response()->json(['message' => 'Terdapat nilai akademik yang belum memiliki status “Accept”.'], 400);
         }
-
         $jadwal->upload_ditutup = !$jadwal->upload_ditutup;
         $jadwal->save();
 
@@ -638,6 +655,41 @@ class DashboardController extends Controller
 
         return response()->json(['message' => 'Setting Upload Nilai Berhasil Diubah (' . $status . ')']);
     }
+
+    public function settingStatusDiterima()
+    {
+        $periode = DB::table('periodes')->where('status_periode', 1)->first();
+        if (!$periode) {
+            return response()->json(['message' => 'Periode belum aktif'], 400);
+        }
+
+        $jadwal = JadwalPendaftaran::where('status_jadwal_pendaftaran', 'Opened')
+            ->where('periode_id', $periode->id)
+            ->first();
+
+        if (!$jadwal) {
+            return response()->json(['message' => 'Jadwal pendaftaran belum dibuka'], 400);
+        }
+
+        if ($jadwal->tampilkan_perangkingan) {
+            $updated = Pendaftaran::where('jadwal_pendaftaran_id', $jadwal->id)
+                ->where('status_final', 'Lolos')
+                ->update(['status_accept' => 'Accept']);
+
+            if ($updated > 0) {
+                return response()->json([
+                    'message' => "Status 'Accept' berhasil diterapkan pada $updated pendaftar.",
+                ]);
+            } else {
+                return response()->json([
+                    'message' => "Tidak ada pendaftar dengan status 'Lolos' yang perlu diperbarui.",
+                ]);
+            }
+        }
+
+        return response()->json(['message' => 'Perangkingan belum dipublikasikan tidak dapat diubah'], 400);
+    }
+
 
     public function moveToNextJadwal()
     {
@@ -717,6 +769,7 @@ class DashboardController extends Controller
         // 7. Update status jadwal berikutnya menjadi 'Opened'
         $nextJadwal->status_jadwal_pendaftaran = 'Opened';
         $nextJadwal->save();
+
 
         // 8. Simpan slot kosong berdasarkan jumlah cadangan ke jadwal berikutnya
         $nextJadwal->slotKosong()->updateOrCreate(

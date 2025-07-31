@@ -18,6 +18,12 @@
 
             <div class="card-body">
                 <div class="table-responsive">
+                    @role('calon-siswa')
+                        <div class="alert alert-info fw-semibold" role="alert">
+                            <strong>Catatan:</strong> Warna aksen <span class="text-primary fw-bold">biru</span> menandakan data
+                            <strong> Anda</strong>.
+                        </div>
+                    @endrole
                     <div class="row align-items-end mb-4 gx-3 gy-2">
                         <div class="col-md-3 col-sm-6">
                             <label for="filter_periode" class="form-label fw-semibold">Filter Periode</label>
@@ -41,6 +47,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Peringkat</th>
                                 <th>Nama Calon Siswa</th>
                                 <th>Gelombang</th>
                                 <th>Status Final</th>
@@ -86,6 +93,12 @@
             color: #007bff;
             pointer-events: none;
         }
+
+        td.accent-index {
+            border-left: 6px solid #0d6efd !important;
+            padding-left: 10px !important;
+            background-clip: padding-box;
+        }
     </style>
 @endpush
 
@@ -108,15 +121,34 @@
                         Swal.fire('Error!', 'Gagal mengambil data dari server.', 'error');
                     }
                 },
+                createdRow: function(row, data, dataIndex) {
+                    if (data.is_current_user) {
+                        $(row).addClass('kamu'); // 🔥 Tambahkan class ke tr
+                    }
+                },
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            if (rowData.is_current_user) {
+                                $(td).addClass('accent-index');
+                            }
+                        }
+
                     },
                     {
+                        data: 'peringkat',
+                        name: 'peringkat',
+                        render: function(data) {
+                            return `<span class="fw-bold">${data}</span>`;
+                        }
+                    },
+
+                    {
                         data: 'nama_calon_siswa',
-                        name: 'biodata_calon_siswas.nama_calon_siswa'
+                        name: 'biodata_calon_siswas.nama_calon_siswa',
                     },
                     {
                         data: 'gelombang_pendaftaran',

@@ -187,6 +187,62 @@
                         </div>
                         <!-- Tambah lebih banyak card statistik di sini -->
                     </div>
+
+                    <div class="row">
+                        <!-- Card Example: Total Pendaftar -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Total Diskualifikasi
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800 total-pendaftar-count">
+                                            {{ $totalDiskualifikasi ?? 0 }}</div>
+
+                                    </div>
+                                    <div class="icon text-primary">
+                                        <i class="fas fa-users fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card Example: Total Tahap Seleksi  -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Total Cadangan
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalCadangan ?? 0 }}
+                                        </div>
+                                    </div>
+                                    <div class="icon text-success">
+                                        <i class="fas fa-chalkboard fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card Example: Total Kelulusan -->
+                        <div class="col-md-4 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body d-flex align-items-center justify-content-between">
+                                    <div>
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            Total Slot Kosong
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $slotKosong ?? 0 }}
+                                        </div>
+                                    </div>
+                                    <div class="icon text-info">
+                                        <i class="fas fa-graduation-cap fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tambah lebih banyak card statistik di sini -->
+                    </div>
                 </div> <!-- end card-body -->
             </div> <!-- end card -->
         </div> <!-- end container -->
@@ -244,6 +300,10 @@
                                             <li class="list-group-item"><span class="badge badge-success mr-2">3</span> Ikuti
                                                 petunjuk daftar ulang dari panitia.</li>
                                         </ul>
+                                        <div class="mt-3">
+                                            <button id="btnAccept" class="btn btn-success mr-2"
+                                                data-url="{{ route('re-registration') }}">Accepted</button>
+                                        </div>
                                     @elseif ($pendaftaran->status_final === 'Tidak Lolos' && !$pendaftaran->status_cadangan)
                                         {{-- Tidak lolos --}}
                                         <ul class="list-group list-group-flush">
@@ -265,6 +325,14 @@
                                                 sudah di gelombang 3/final, Anda akan menunggu calon yang tidak menekan tombol
                                                 Accepted.</li>
                                         </ul>
+                                        <div class="mt-3">
+                                            <button id="btnAccept" class="btn btn-success mr-2"
+                                                data-url="{{ route('cadangan.decision') }}"
+                                                data-decision="accept">Accept</button>
+                                            <button id="btnReject" class="btn btn-danger"
+                                                data-url="{{ route('cadangan.decision') }}"
+                                                data-decision="reject">Reject</button>
+                                        </div>
                                     @elseif ($pendaftaran->status_final === 'Pending')
                                         {{-- Masih dalam proses seleksi --}}
                                         <ul class="list-group list-group-flush">
@@ -326,6 +394,8 @@
 @endpush
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('js/cadanganDecision.js') }}"></script>
+    <script src="{{ asset('js/re-registration.js') }}"></script>
     <script src="{{ asset('js/admin-actions.js') }}"></script>
     <script>
         @if (session('error'))

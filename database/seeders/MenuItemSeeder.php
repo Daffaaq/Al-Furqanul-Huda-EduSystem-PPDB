@@ -64,6 +64,12 @@ class MenuItemSeeder extends Seeder
                     'menu_group_id' => 2,
                 ],
                 [
+                    'name' => 'Contact',
+                    'route' => 'master-management/contact',
+                    'permission_name' => 'contact.index',
+                    'menu_group_id' => 2,
+                ],
+                [
                     'name' => 'Biodata Calon Siswa',
                     'route' => 'pendaftaran-management/biodata-calon-siswa',
                     'permission_name' => 'biodata-calon-siswa.index',

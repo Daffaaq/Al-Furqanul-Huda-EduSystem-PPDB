@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\JadwalPendaftaranController;
+use App\Http\Controllers\KontakController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MataPelajaranSeleksiController;
 use App\Http\Controllers\Menu\MenuGroupController;
@@ -44,6 +45,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/move-next-jadwal', [DashboardController::class, 'moveToNextJadwal'])->name('move-next-jadwal');
     Route::post('/set/biodata', [DashboardController::class, 'SettingBiodata'])->name('set-biodata');
     Route::post('/set/upload-nilai', [DashboardController::class, 'settingUploadNilai'])->name('set-upload-nilai');
+
+    Route::post('/re-registration', [PengumumanController::class, 'reRegistration'])->name('re-registration');
+
+    Route::post('/cadangan/decision', [PengumumanController::class, 'handleCadanganDecision'])->name('cadangan.decision');
+
     Route::get('/periode/active/topbar', function () {
         return view('layouts.periodeactive');
     });
@@ -86,6 +92,10 @@ Route::group(['middleware' => ['auth']], function () {
         //quote
         Route::resource('quote', QuoteController::class);
         Route::post('/quote/list', [QuoteController::class, 'list'])->name('quote.list');
+
+        //contact
+        Route::resource('contact', KontakController::class);
+        Route::post('/contact/updateJamOperasional', [KontakController::class, 'updateJamOperasional'])->name('contact.updateJamOperasional');
     });
 
     Route::prefix('pendaftaran-management')->group(function () {

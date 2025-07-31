@@ -52,9 +52,11 @@ class LandingPageController extends Controller
                 $jadwalPendaftaranAktif->jumlah_daftar = $jumlahDaftar;
             }
             $faqs = Faq::where('is_active', true)->where('periode_id', $periode->id)->orderBy('order')->select('question', 'answer')->get();
+            $contact = DB::table('kontaks')->select('alamat', 'telepon', 'email', 'latitude', 'longitude', 'facebook', 'instagram', 'youtube', 'tiktok', 'whatsapp')->first();
+            $jamOperasionals = DB::table('jam_operasionals')->select('id', 'hari', 'buka', 'tutup', 'tutup_full')->get();
         }
 
-        return view('landing-page', compact('jadwalPendaftaran', 'jadwalPendaftaranAktif', 'faqs'));
+        return view('landing-page', compact('jadwalPendaftaran', 'jadwalPendaftaranAktif', 'faqs', 'contact', 'jamOperasionals'));
     }
 
 

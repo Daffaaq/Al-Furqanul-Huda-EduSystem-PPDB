@@ -131,6 +131,12 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'quote.edit']);
         Permission::create(['name' => 'quote.destroy']);
 
+        //contact
+        Permission::create(['name' => 'contact.index']);
+        Permission::create(['name' => 'contact.create']);
+        Permission::create(['name' => 'contact.edit']);
+        Permission::create(['name' => 'contact.destroy']);
+
 
         // create roles 
         $roleUser = Role::create(['name' => 'admin']);

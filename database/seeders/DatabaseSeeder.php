@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             BobotPendaftaranSeeder::class,
             IndoRegionSeeder::class,
             FaqSeeder::class,
-            QuotesSeeder::class
+            QuotesSeeder::class,
+            ContactSeeder::class
         ]);
     }
 }
