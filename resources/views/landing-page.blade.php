@@ -1318,14 +1318,14 @@
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/{{ $contact->whatsapp }}"
-        class="fixed bottom-6 right-6 z-50 bg-emerald-900 hover:bg-emerald-700 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg"
+        class="wa-button fixed bottom-6 right-6 z-50 bg-emerald-900 hover:bg-emerald-700 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg"
         target="_blank" aria-label="WhatsApp">
         <i class="fab fa-whatsapp text-xl"></i>
     </a>
 
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-r from-emerald-700 to-emerald-900 text-white py-16">
+    <footer id="footer" class="bg-gradient-to-r from-emerald-700 to-emerald-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
 
             <!-- Logo & Deskripsi -->
@@ -1417,6 +1417,24 @@
             .openPopup();
     </script>
 
+
+    <script>
+        const waButton = document.querySelector('.wa-button');
+        const footer = document.getElementById('footer');
+
+        window.addEventListener('scroll', () => {
+            const footerTop = footer.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+
+            if (footerTop < windowHeight) {
+                waButton.classList.remove('bg-emerald-900', 'hover:bg-emerald-700');
+                waButton.classList.add('bg-white', 'text-emerald-900');
+            } else {
+                waButton.classList.remove('bg-white', 'text-emerald-900');
+                waButton.classList.add('bg-emerald-900', 'hover:bg-emerald-700');
+            }
+        });
+    </script>
 
     <script>
         // Array with image paths
