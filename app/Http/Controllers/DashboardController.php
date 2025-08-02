@@ -628,10 +628,6 @@ class DashboardController extends Controller
             return response()->json(['message' => 'Jadwal pendaftaran belum dibuka'], 400);
         }
 
-        if ($jadwal->tampilkan_perangkingan) {
-            return response()->json(['message' => 'Perangkingan sudah dipublikasikan'], 400);
-        }
-
         // Cek apakah semua pendaftaran di jadwal ini sudah final
         $totalPendaftaran = $jadwal->pendaftarans()->count();
         $jumlahMapelSeleksi = MataPelajaranSeleksi::where('periode_id', $periode->id)->count();
